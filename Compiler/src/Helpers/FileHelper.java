@@ -7,10 +7,16 @@ import java.util.Locale;
 public class FileHelper {
     public static ArrayList<String> getFiles() {
         File directory = new File("");
-        String path = "/Compiler/src/compiler/Tests";
+        String divisor = "";
         String OS = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
-        if(OS.contains("win"))
-            path = path.replace('/', '\\');
+        if(OS.contains("win")){
+            divisor = "\\";
+        }
+        else{
+            divisor = "/";
+        }
+        String path = divisor + "Compiler" + divisor + "src" + divisor + "compiler" + divisor + "Tests";
+
         String fullPath = directory.getAbsolutePath() + path;
         File[] listFiles = new File(fullPath).listFiles();
         
@@ -18,10 +24,7 @@ public class FileHelper {
 
         for (File file : listFiles) {
             if (file.isFile()) {
-                if(OS.contains("win"))
-                    files.add(fullPath + "\\" + file.getName());
-                else
-                    files.add(fullPath + "/" + file.getName());
+                files.add(fullPath + divisor + file.getName());
             }
         }
 
