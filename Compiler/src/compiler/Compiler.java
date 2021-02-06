@@ -5,6 +5,8 @@
  */
 package compiler;
 
+import java.util.Locale;
+
 /**
  *
  * @author yanvi
@@ -16,6 +18,8 @@ public class Compiler {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+		String os = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
+        System.out.println(os);
         System.out.println("Hello Negreiros!");
     }
     

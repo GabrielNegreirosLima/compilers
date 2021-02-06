@@ -58,6 +58,7 @@ public class Lexer {
 
     private void readch() throws IOException {
         ch = (char) file.read();
+		ch = Character.toLowerCase(ch);
     }
 
     private boolean readch(char c) throws IOException {
@@ -76,6 +77,9 @@ public class Lexer {
 		for (;; readch()) {
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
                 continue;
+			else if (ch == '%')
+				while (ch != '%') 
+					readch();
             else if (ch == '\n')
                 line++; // count lines
             else
