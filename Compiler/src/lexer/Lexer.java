@@ -37,12 +37,22 @@ public class Lexer {
         }
 
 		// TODO: reservar the correct Words for the language 
-        // reserve(new Word("if", Tag.IF));
-        // reserve(new Word("program", Tag.PRG));
-        // reserve(new Word("begin", Tag.BEG));
-        // reserve(new Word("end", Tag.END));
-        // reserve(new Word("type", Tag.TYPE));
-        // reserve(new Word("int", Tag.INT));
+        reserve(new Word("if", Tag.IF));
+        reserve(new Word("stop", Tag.STOP));
+        reserve(new Word("read", Tag.READ));
+        reserve(new Word("write", Tag.WRITE));
+        reserve(new Word("is", Tag.IS));
+        reserve(new Word("integer", Tag.INTEGER));
+        reserve(new Word("real", Tag.REAL));
+        reserve(new Word("if", Tag.IF));
+        reserve(new Word("else", Tag.ELSE));
+        reserve(new Word("begin", Tag.BEGIN));
+        reserve(new Word("end", Tag.END));
+        reserve(new Word("do", Tag.DO));
+        reserve(new Word("while", Tag.WHILE));
+        reserve(new Word("not", Tag.NOT));
+        reserve(new Word("or", Tag.OR));
+        reserve(new Word("and", Tag.AND));
     }
 
     private void readch() throws IOException {

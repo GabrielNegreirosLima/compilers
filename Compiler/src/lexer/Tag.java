@@ -10,7 +10,7 @@ public class Tag {
 
         //Variables Types
         IS = 260,
-        INTERGER = 261,
+        INTEGER = 261,
         STRING = 262,
         REAL = 263,
 
