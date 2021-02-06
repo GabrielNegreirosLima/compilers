@@ -5,22 +5,22 @@ public class Tag {
 		//Reserved words
         INIT = 256,
         STOP = 257,
-        READ = 268,
-        WRITE = 269,
+        READ = 258,
+        WRITE = 259,
 
         //Variables Types
-        IS = 258,
-        INTERGER = 259,
-        STRING = 260,
-        REAL = 261,
+        IS = 260,
+        INTERGER = 261,
+        STRING = 262,
+        REAL = 263,
 
         //Conditionals
-        IF = 262,
-        ELSE = 263,
-        BEGIN = 264,
-        END = 265,
-        DO = 266,
-        WHILE = 267,
+        IF = 264,
+        ELSE = 265,
+        BEGIN = 266,
+        END = 267,
+        DO = 268,
+        WHILE = 269,
 
         //Logical Operators
         NOT = 270,
@@ -32,20 +32,20 @@ public class Tag {
         LESS = 276, // <
         LESS_EQUAL = 277, //<=
         DIFFERENT = 278, // <>
-        EQUALS = 288,
+        EQUALS = 279, // =
 
         //Arithmetic Operators
-        SUM = 279, // +
-        MINUS = 280, // -
-        TIMES = 281, // *
-        DIVIDE = 282, // /
+        SUM = 280, // +
+        MINUS = 281, // -
+        TIMES = 282, // *
+        DIVIDE = 283, // /
 
         //Grammar
-        QUOTE = 283, // "
-        OPEN_PARENTHESIS = 284, // (
-        CLOSE_PARENTHESIS = 285, // )
-        COMMENT = 286, // %
-        END_COMMAND = 287; // ;
+        QUOTE = 284, // "
+        OPEN_PARENTHESIS = 285, // (
+        CLOSE_PARENTHESIS = 286, // )
+        COMMENT = 287, // %
+        END_COMMAND = 288; // ;
 
         // TYPE = 259,
         // BOOL = 262,
