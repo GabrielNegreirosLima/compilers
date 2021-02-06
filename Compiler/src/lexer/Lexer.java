@@ -3,6 +3,20 @@ package lexer;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Token formation pattern:
+ * constant → integer_const | literal
+ * integer_const → nonzero{digit}| “0”
+ * real_const → interger_const "." digit+
+ * literal → "“" caractere*"”" 
+ * identifier → letter{letter | digit| "_ "}
+ * letter → [A-Za-z]
+ * digit → [0-9]
+ * nonzero→ [1-9]
+ * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
+ * exceto as aspas e quebra de linha
+ */
+
 public class Lexer {
     public static int line = 1;
     private char ch = ' ';
@@ -22,12 +36,13 @@ public class Lexer {
             throw e;
         }
 
-        reserve(new Word("if", Tag.IF));
-        reserve(new Word("program", Tag.PRG));
-        reserve(new Word("begin", Tag.BEG));
-        reserve(new Word("end", Tag.END));
-        reserve(new Word("type", Tag.TYPE));
-        reserve(new Word("int", Tag.INT));
+		// TODO: reservar the correct Words for the language 
+        // reserve(new Word("if", Tag.IF));
+        // reserve(new Word("program", Tag.PRG));
+        // reserve(new Word("begin", Tag.BEG));
+        // reserve(new Word("end", Tag.END));
+        // reserve(new Word("type", Tag.TYPE));
+        // reserve(new Word("int", Tag.INT));
     }
 
     private void readch() throws IOException {
@@ -46,15 +61,19 @@ public class Lexer {
 
     public Token scan() throws IOException {
 
-        for (;; readch()) {
+        // Ignore delimiters
+		for (;; readch()) {
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
                 continue;
             else if (ch == '\n')
-                line++; // conta linhas
+                line++; // count lines
             else
                 break;
         }
 
+		// TODO: check for operators.
+		// Change this to implement the correct tokens for the 
+		// language. See the correct pattern at the file's head. 
         switch (ch) {
             case '&':
                 if (readch('&'))
@@ -83,6 +102,11 @@ public class Lexer {
                     return new Token('>');
         }
 
+		// TODO: check for numbers. Implement integer_const, 
+		// real_const and digit here.
+		// Change this to implementation the correct tokens for
+		// the language. See the correct pattern 
+		// at the file's head. 
         if (Character.isDigit(ch)) {
             int value = 0;
 
@@ -93,7 +117,13 @@ public class Lexer {
 
             return new Num(value);
         }
+		
 
+		// TODO: check for identifiers. Implement integer_const, 
+		// real_const and digit here.
+		// Change this to implementation the correct tokens for
+		// the language. See the correct pattern 
+		// at the file's head. 
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
