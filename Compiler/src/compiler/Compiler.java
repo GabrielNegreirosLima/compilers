@@ -5,6 +5,10 @@
  */
 package compiler;
 
+import java.util.ArrayList;
+import Helpers.FileHelper;
+import lexer.Lexer;
+
 /**
  *
  * @author yanvi
@@ -16,6 +20,16 @@ public class Compiler {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        try {
+            ArrayList<String> testFiles = FileHelper.getFiles();
+            System.out.println(testFiles);
+
+            Lexer lexer = new Lexer(testFiles.get(0));
+
+        } catch (Exception e) {
+            System.out.println("Tests files not found.");
+        }
+
         System.out.println("Hello Negreiros!");
     }
     
