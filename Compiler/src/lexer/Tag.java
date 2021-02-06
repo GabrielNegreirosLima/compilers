@@ -10,7 +10,7 @@ public class Tag {
 
         //Variables Types
         IS = 260,
-        INTERGER = 261,
+        INTEGER = 261,
         STRING = 262,
         REAL = 263,
 
@@ -31,7 +31,7 @@ public class Tag {
         GREATER_EQUAL = 275, // >=
         LESS = 276, // <
         LESS_EQUAL = 277, //<=
-        DIFFERENT = 278, // <>
+        NOT_EQUAL = 278, // <>
         EQUALS = 279, // =
 
         //Arithmetic Operators
