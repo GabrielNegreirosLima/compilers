@@ -43,6 +43,7 @@ public class Lexer {
         reserve(new Word("write", Tag.WRITE));
         reserve(new Word("is", Tag.IS));
         reserve(new Word("integer", Tag.INTEGER));
+        reserve(new Word("string", Tag.STRING));
         reserve(new Word("real", Tag.REAL));
         reserve(new Word("if", Tag.IF));
         reserve(new Word("else", Tag.ELSE));
@@ -84,33 +85,33 @@ public class Lexer {
 		// TODO: check for operators.
 		// Change this to implement the correct tokens for the 
 		// language. See the correct pattern at the file's head. 
-        switch (ch) {
-            case '&':
-                if (readch('&'))
-                    return Word.and;
-                else
-                    return new Token('&');
-            case '|':
-                if (readch('|'))
-                    return Word.or;
-                else
-                    return new Token('|');
-            case '=':
-                if (readch('='))
-                    return Word.eq;
-                else
-                    return new Token('=');
-            case '<':
-                if (readch('='))
-                    return Word.le;
-                else
-                    return new Token('<');
-            case '>':
-                if (readch('='))
-                    return Word.ge;
-                else
-                    return new Token('>');
-        }
+        // switch (ch) {
+        //     case '&':
+        //         if (readch('&'))
+        //             return Word.AND;
+        //         else
+        //             return new Token('&');
+        //     case '|':
+        //         if (readch('|'))
+        //             return Word.or;
+        //         else
+        //             return new Token('|');
+        //     case '=':
+        //         if (readch('='))
+        //             return Word.eq;
+        //         else
+        //             return new Token('=');
+        //     case '<':
+        //         if (readch('='))
+        //             return Word.le;
+        //         else
+        //             return new Token('<');
+        //     case '>':
+        //         if (readch('='))
+        //             return Word.ge;
+        //         else
+        //             return new Token('>');
+        // }
 
 		// TODO: check for numbers. Implement integer_const, 
 		// real_const and digit here.

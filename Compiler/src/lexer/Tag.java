@@ -45,7 +45,9 @@ public class Tag {
         OPEN_PARENTHESIS = 285, // (
         CLOSE_PARENTHESIS = 286, // )
         COMMENT = 287, // %
-        END_COMMAND = 288; // ;
+        END_COMMAND = 288, // ;
+
+        ID = 289;
 
         // TYPE = 259,
         // BOOL = 262,
