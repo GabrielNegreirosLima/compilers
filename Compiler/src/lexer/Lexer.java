@@ -3,6 +3,19 @@ package lexer;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Token formation pattern:
+ * constant → integer_const | literal
+ * integer_const → nonzero{digit}| “0”
+ * real_const → interger_const "." digit+
+ * literal → "“" caractere*"”" 
+ * identifier → letter{letter | digit| "_ "}
+ * letter → [A-Za-z]
+ * digit → [0-9]
+ * nonzero→[1-9]
+ * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  excetoas aspase quebra de linha
+ */
+
 public class Lexer {
     public static int line = 1;
     private char ch = ' ';

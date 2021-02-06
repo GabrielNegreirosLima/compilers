@@ -1,2 +1,4 @@
 /Compiler/nbproject/private/
 /Compiler/build/
+*.class
+
