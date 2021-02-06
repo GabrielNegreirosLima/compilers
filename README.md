@@ -15,3 +15,6 @@ The lexer in this will parse the following. The token formation is specified in 
 - [ ] digit
 - [ ] nonzero
 - [ ] caractere
+
+Other topics that have to be considered but are not in the direct specification:
+- [x] comments removing
