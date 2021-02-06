@@ -2,7 +2,7 @@ package lexer;
 public class Tag {
     public final static int
         
-			//Palavras reservadas
+		//Palavras reservadas
         PRG = 256,
         BEG = 257,
         END = 258,
