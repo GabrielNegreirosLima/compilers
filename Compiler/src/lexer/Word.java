@@ -4,9 +4,6 @@ public class Word extends Token {
     private String lexeme = "";
 
     //Logical Operators
-    public static final Word and = new Word("and", Tag.AND);
-    public static final Word or = new Word("or", Tag.OR);
-    public static final Word not = new Word("not", Tag.NOT);
     public static final Word equals = new Word("=", Tag.EQUALS);
     public static final Word notEqual = new Word("<>", Tag.NOT_EQUAL);
     public static final Word less = new Word("<", Tag.LESS);
