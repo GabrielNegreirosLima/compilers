@@ -31,7 +31,7 @@ public class Tag {
         GREATER_EQUAL = 275, // >=
         LESS = 276, // <
         LESS_EQUAL = 277, //<=
-        DIFFERENT = 278, // <>
+        NOT_EQUAL = 278, // <>
         EQUALS = 279, // =
 
         //Arithmetic Operators
