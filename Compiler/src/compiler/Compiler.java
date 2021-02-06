@@ -5,7 +5,9 @@
  */
 package compiler;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import Helpers.FileHelper;
+import lexer.Lexer;
 
 /**
  *
@@ -18,8 +20,16 @@ public class Compiler {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-		String os = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
-        System.out.println(os);
+        try {
+            ArrayList<String> testFiles = FileHelper.getFiles();
+            System.out.println(testFiles);
+
+            Lexer lexer = new Lexer(testFiles.get(0));
+
+        } catch (Exception e) {
+            System.out.println("Tests files not found.");
+        }
+
         System.out.println("Hello Negreiros!");
     }
     

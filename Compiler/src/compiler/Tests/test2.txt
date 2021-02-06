@@ -1,0 +1,12 @@
+a, _valor, b_1, b_2 : integer;
+
+init
+    write("Entre com o valor de a:");
+    read (a);
+    b_1 := a * a;
+    write("O valor de b1 e:");
+    write (b_1);
+    b_2 = b + a/2 * (a + 5);
+    write("O valor de b1 e:");
+    Write (b1);
+stop
