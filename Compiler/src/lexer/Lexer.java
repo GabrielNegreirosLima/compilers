@@ -12,8 +12,9 @@ import java.util.*;
  * identifier → letter{letter | digit| "_ "}
  * letter → [A-Za-z]
  * digit → [0-9]
- * nonzero→[1-9]
- * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  excetoas aspase quebra de linha
+ * nonzero→ [1-9]
+ * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
+ * exceto as aspas e quebra de linha
  */
 
 public class Lexer {
