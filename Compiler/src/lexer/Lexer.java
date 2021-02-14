@@ -144,9 +144,8 @@ public class Lexer {
             return idToken;
 
         // Error handling
-        Token t = new Token(ch);
-        ch = ' ';
-        return t;
+        System.out.println("Malformed token: \"" + ch + "\" at line" + line);
+        System.exit(1);
     }
 
     private Token verifyIdentifier(char ch) throws IOException{
