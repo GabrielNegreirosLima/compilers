@@ -5,15 +5,15 @@ import java.util.*;
 
 /**
  * Token formation pattern:
- * [Bruno] constant → integer_const | literal
+ * [DONE][Bruno] constant → integer_const | literal
  * [Yan] integer_const → nonzero{digit}| “0”
  * [Yan] real_const → interger_const "." digit+
- * [Bruno] literal → "“" caractere*"”" 
+ * [DONE][Bruno] literal → "“" caractere*"”" 
  * [DONE][Negreiros] identifier → letter{letter | digit| "_"}
  * [Character.isLetter(ch)] letter → [A-Za-z]
  * [Yan] digit → [0-9]
  * [Yan] nonzero→ [1-9]
- * [Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
+ * [DONE][Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
  * exceto as aspas e quebra de linha
  */
 
@@ -139,7 +139,7 @@ public class Lexer {
 		
 
         // Identifiers
-        Token idToken = verifyIdentifier(ch);
+        Token idToken = verifyIdentifier();
         if(idToken != null)
             return idToken;
 
@@ -149,7 +149,7 @@ public class Lexer {
         return t;
     }
 
-    private Token verifyIdentifier(char ch) throws IOException {
+    private Token verifyIdentifier() throws IOException {
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
@@ -172,29 +172,58 @@ public class Lexer {
         return null;
     }
 
-    private boolean verifyCharacter(char ch) throws IOException {
+    private boolean verifyCharacter() throws IOException {
         int asciValue = (int) ch;
         return ((asciValue >= 0 && asciValue <= 255) && (ch != '"' && ch != '\n'));
     }
 
-    private Token verifyLiteral(char ch) throws IOException {
-        if(ch != '"') {
-            System.out.println('');
-            exit(0);
-        }
-        readch();
+    private String getLiteral() throws IOException {
         StringBuffer sb = new StringBuffer();
-        while(verifyCharacter(ch)) {
+        
+        if(ch != '"') {
+            //TODO: Throw exception
+            System.out.println("Expected character: " + ch + "to be: " + '"' );
+            return null;
+        }
+
+        readch();
+
+        while(verifyCharacter()) {
             sb.append(ch);
             readch();
         }
-        if(ch != '"') return null;
 
-        String s = sb.toString();
+        if(ch != '"') {
+            //TODO: Throw exception
+            System.out.println("Expected character: " + ch + "to be: " + '"' );
+            return null;
+        }
 
+        return sb.toString();
+    }
+
+    private Token verifyLiteral() throws IOException {
+        String s = getLiteral();
         Word w = new Word(s, Tag.STRING);
         words.put(s, w);
         return w;
+    }
+
+    private Token verifyconstant() throws IOException {
+        // String integer = getIntegerConst();
+        // if(integer != null) {
+        //     Word w = new Word(integer, Tag.CONSTANT);
+        //     words.put(integer, w);
+        //     return w;
+        // }
+
+        String literal = getLiteral();
+        if(literal != null) {
+            Word w = new Word(literal, Tag.CONSTANT);
+            words.put(literal, w);
+            return w;
+        }
+        
     }
 
 }

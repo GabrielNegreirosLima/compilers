@@ -14,6 +14,7 @@ public class Tag {
         INTEGER = 261,
         STRING = 262,
         REAL = 263,
+        CONSTANT = 290,
 
         //Conditionals
         IF = 264,
