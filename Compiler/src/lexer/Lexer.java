@@ -9,7 +9,7 @@ import java.util.*;
  * integer_const → nonzero{digit}| “0”
  * real_const → interger_const "." digit+
  * literal → "“" caractere*"”" 
- * [Negreiros] identifier → letter{letter | digit| "_ "}
+ * [Negreiros] identifier → letter{letter | digit| "_"}
  * letter → [A-Za-z]
  * digit → [0-9]
  * nonzero→ [1-9]
@@ -37,6 +37,7 @@ public class Lexer {
         }
 
         reserve(new Word("if", Tag.IF));
+        reserve(new Word("init", Tag.INIT));
         reserve(new Word("stop", Tag.STOP));
         reserve(new Word("read", Tag.READ));
         reserve(new Word("write", Tag.WRITE));
@@ -44,7 +45,6 @@ public class Lexer {
         reserve(new Word("integer", Tag.INTEGER));
         reserve(new Word("string", Tag.STRING));
         reserve(new Word("real", Tag.REAL));
-        reserve(new Word("if", Tag.IF));
         reserve(new Word("else", Tag.ELSE));
         reserve(new Word("begin", Tag.BEGIN));
         reserve(new Word("end", Tag.END));
@@ -71,6 +71,10 @@ public class Lexer {
     }
 
     public Token scan() throws IOException {
+
+        //TODO: Verificar se é palavra reservada 
+        // aqui no começo. words.get(s)
+        
 
         // Ignore delimiters
 		for (;; readch()) {
@@ -134,17 +138,13 @@ public class Lexer {
         }
 		
 
-		// TODO: check for identifiers.
-		// Change this to implementation the correct tokens for
-		// the language. See the correct pattern 
-		// at the file's head. 
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
             do {
                 sb.append(ch);
                 readch();
-            } while (Character.isLetterOrDigit(ch));
+            } while (Character.isLetterOrDigit(ch) || ch == '_');
 
             String s = sb.toString();
             Word w = (Word) words.get(s);

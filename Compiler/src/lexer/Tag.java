@@ -50,11 +50,5 @@ public class Tag {
 
         ID = 289;
 
-        // TYPE = 259,
-        // BOOL = 262,
-        // EQ = 288,
-		// TRUE = 294,
-        // FALSE = 295, 
-
 }
 
