@@ -5,15 +5,15 @@ import java.util.*;
 
 /**
  * Token formation pattern:
- * constant → integer_const | literal
- * integer_const → nonzero{digit}| “0”
- * real_const → interger_const "." digit+
- * literal → "“" caractere*"”" 
+ * [Bruno] constant → integer_const | literal
+ * [Yan] integer_const → nonzero{digit}| “0”
+ * [Yan] real_const → interger_const "." digit+
+ * [Bruno] literal → "“" caractere*"”" 
  * [DONE][Negreiros] identifier → letter{letter | digit| "_"}
  * [Character.isLetter(ch)] letter → [A-Za-z]
- * digit → [0-9]
- * nonzero→ [1-9]
- * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
+ * [Yan] digit → [0-9]
+ * [Yan] nonzero→ [1-9]
+ * [Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
  * exceto as aspas e quebra de linha
  */
 

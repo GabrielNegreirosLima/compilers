@@ -2,3 +2,4 @@
 /Compiler/build/
 *.class
 
+/Compiler/dist/
