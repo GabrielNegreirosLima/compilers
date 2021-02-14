@@ -9,7 +9,7 @@ import java.util.*;
  * integer_const → nonzero{digit}| “0”
  * real_const → interger_const "." digit+
  * literal → "“" caractere*"”" 
- * identifier → letter{letter | digit| "_ "}
+ * [Negreiros] identifier → letter{letter | digit| "_ "}
  * letter → [A-Za-z]
  * digit → [0-9]
  * nonzero→ [1-9]
@@ -36,7 +36,6 @@ public class Lexer {
             throw e;
         }
 
-		// TODO: reservar the correct Words for the language 
         reserve(new Word("if", Tag.IF));
         reserve(new Word("stop", Tag.STOP));
         reserve(new Word("read", Tag.READ));
@@ -77,6 +76,7 @@ public class Lexer {
 		for (;; readch()) {
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
                 continue;
+            // Ignore comments
 			else if (ch == '%')
 				while (ch != '%') 
 					readch();
@@ -134,8 +134,7 @@ public class Lexer {
         }
 		
 
-		// TODO: check for identifiers. Implement integer_const, 
-		// real_const and digit here.
+		// TODO: check for identifiers.
 		// Change this to implementation the correct tokens for
 		// the language. See the correct pattern 
 		// at the file's head. 
@@ -158,6 +157,7 @@ public class Lexer {
             return w;
         }
 
+        // Error handling
         Token t = new Token(ch);
         ch = ' ';
         return t;
