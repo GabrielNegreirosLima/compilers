@@ -218,7 +218,7 @@ public class Lexer {
             words.put(literal, w);
             return w;
         }
-        
+        return null;
     }
 
 }
