@@ -72,10 +72,6 @@ public class Lexer {
 
     public Token scan() throws IOException {
 
-        //TODO: Verificar se é palavra reservada 
-        // aqui no começo. words.get(s)
-        
-
         // Ignore delimiters
 		for (;; readch()) {
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
@@ -139,7 +135,7 @@ public class Lexer {
 		
 
         // Identifiers
-        Token idToken = verifyIdentifier();
+        Token idToken = verifyIdentifierAndReserved();
         if(idToken != null)
             return idToken;
 
@@ -148,7 +144,7 @@ public class Lexer {
         return null;
     }
 
-    private Token verifyIdentifier() throws IOException{
+    private Token verifyIdentifierAndReserved() throws IOException{
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
