@@ -9,8 +9,8 @@ import java.util.*;
  * integer_const → nonzero{digit}| “0”
  * real_const → interger_const "." digit+
  * literal → "“" caractere*"”" 
- * [Negreiros] identifier → letter{letter | digit| "_"}
- * letter → [A-Za-z]
+ * [DONE][Negreiros] identifier → letter{letter | digit| "_"}
+ * [Character.isLetter(ch)] letter → [A-Za-z]
  * digit → [0-9]
  * nonzero→ [1-9]
  * caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
@@ -138,6 +138,18 @@ public class Lexer {
         }
 		
 
+        // Identifiers
+        Token idToken = verifyIdentifier(ch);
+        if(idToken != null)
+            return idToken;
+
+        // Error handling
+        Token t = new Token(ch);
+        ch = ' ';
+        return t;
+    }
+
+    private Token verifyIdentifier(char ch) throws IOException{
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
@@ -157,10 +169,7 @@ public class Lexer {
             return w;
         }
 
-        // Error handling
-        Token t = new Token(ch);
-        ch = ' ';
-        return t;
+        return null;
     }
 
 }
