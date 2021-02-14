@@ -3,7 +3,7 @@ package lexer;
 public class Tag {
     public final static int
         
-		//Reserved words
+		    //Reserved words
         INIT = 256,
         STOP = 257,
         READ = 258,
