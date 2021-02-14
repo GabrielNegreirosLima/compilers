@@ -139,7 +139,7 @@ public class Lexer {
 		
 
         // Identifiers
-        Token idToken = verifyIdentifier(ch);
+        Token idToken = verifyIdentifier();
         if(idToken != null)
             return idToken;
 
