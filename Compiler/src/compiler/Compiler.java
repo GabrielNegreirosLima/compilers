@@ -6,8 +6,11 @@
 package compiler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import Helpers.FileHelper;
 import lexer.Lexer;
+import lexer.Token;
 
 /**
  *
@@ -21,16 +24,26 @@ public class Compiler {
     public static void main(String[] args) {
         // TODO code application logic here
         try {
+            Lexer lexer;
+            Token token;
             ArrayList<String> testFiles = FileHelper.getFiles();
+            Iterator i = testFiles.iterator();
             System.out.println(testFiles);
 
-            Lexer lexer = new Lexer(testFiles.get(0));
+            while (i.hasNext()) {
+                lexer = new Lexer(i.next().toString());
+                token = lexer.scan();
+                if(token != null)
+                    System.out.println(token.toString());
+                else
+                    System.exit(1);
+            }
 
         } catch (Exception e) {
             System.out.println("Tests files not found.");
         }
 
-        System.out.println("Hello Negreiros!");
+        
     }
     
 }
