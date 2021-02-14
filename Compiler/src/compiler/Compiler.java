@@ -8,6 +8,7 @@ package compiler;
 import java.util.ArrayList;
 import Helpers.FileHelper;
 import lexer.Lexer;
+import lexer.Token;
 
 /**
  *
@@ -25,6 +26,12 @@ public class Compiler {
             System.out.println(testFiles);
 
             Lexer lexer = new Lexer(testFiles.get(0));
+            Token token = lexer.scan();
+            if(token != null)
+                System.out.println(token.toString());
+            else
+                System.exit(1);
+            
 
         } catch (Exception e) {
             System.out.println("Tests files not found.");
