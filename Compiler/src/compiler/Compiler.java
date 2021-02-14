@@ -30,7 +30,7 @@ public class Compiler {
             System.out.println("Tests files not found.");
         }
 
-        System.out.println("Hello Negreiros!");
+        
     }
     
 }

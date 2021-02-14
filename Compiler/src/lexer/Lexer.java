@@ -146,6 +146,7 @@ public class Lexer {
         // Error handling
         System.out.println("Malformed token: \"" + ch + "\" at line" + line);
         System.exit(1);
+        return null;
     }
 
     private Token verifyIdentifier(char ch) throws IOException{
