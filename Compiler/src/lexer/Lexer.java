@@ -168,8 +168,8 @@ public class Lexer {
     }
 
     private boolean verifyCharacter() throws IOException {
-        int asciValue = (int) ch;
-        return ((asciValue >= 0 && asciValue <= 255) && (ch != '"' && ch != '\n'));
+        int asciiValue = (int) ch;
+        return ((asciiValue >= 0 && asciiValue <= 255) && (ch != '"' && ch != '\n'));
     }
 
     private String getLiteral() throws IOException {
