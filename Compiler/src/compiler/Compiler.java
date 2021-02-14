@@ -25,7 +25,10 @@ public class Compiler {
             System.out.println(testFiles);
 
             Lexer lexer = new Lexer(testFiles.get(0));
-
+            System.out.println((int)'a');
+            System.out.println((int)'z');
+            System.out.println((int)'A');
+            System.out.println((int)'Z');
         } catch (Exception e) {
             System.out.println("Tests files not found.");
         }

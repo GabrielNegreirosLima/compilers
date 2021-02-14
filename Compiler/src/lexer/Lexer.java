@@ -22,7 +22,7 @@ public class Lexer {
     private char ch = ' ';
     private FileReader file;
 
-    private Hashtable words = new Hashtable();
+    private Hashtable<String, Word> words = new Hashtable();
 
     private void reserve(Word w) {
         words.put(w.getLexeme(), w);
@@ -149,7 +149,7 @@ public class Lexer {
         return t;
     }
 
-    private Token verifyIdentifier(char ch) throws IOException{
+    private Token verifyIdentifier(char ch) throws IOException {
         if (Character.isLetter(ch)) {
             StringBuffer sb = new StringBuffer();
 
@@ -170,6 +170,31 @@ public class Lexer {
         }
 
         return null;
+    }
+
+    private boolean verifyCharacter(char ch) throws IOException {
+        int asciValue = (int) ch;
+        return ((asciValue >= 0 && asciValue <= 255) && (ch != '"' && ch != '\n'));
+    }
+
+    private Token verifyLiteral(char ch) throws IOException {
+        if(ch != '"') {
+            System.out.println('');
+            exit(0);
+        }
+        readch();
+        StringBuffer sb = new StringBuffer();
+        while(verifyCharacter(ch)) {
+            sb.append(ch);
+            readch();
+        }
+        if(ch != '"') return null;
+
+        String s = sb.toString();
+
+        Word w = new Word(s, Tag.STRING);
+        words.put(s, w);
+        return w;
     }
 
 }
