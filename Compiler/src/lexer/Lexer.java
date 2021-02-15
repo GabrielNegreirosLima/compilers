@@ -180,7 +180,6 @@ public class Lexer {
         
         if(ch != '"') {
             //TODO: Throw exception
-            // System.out.println("Expected character: " + ch + "to be: " + '"' );
             return null;
         }
 
@@ -193,7 +192,6 @@ public class Lexer {
 
         if(ch != '"') {
             //TODO: Throw exception
-            // System.out.println("Expected character: " + ch + "to be: " + '"' );
             return null;
         }
 
