@@ -27,7 +27,7 @@ public class Compiler {
             Lexer lexer;
             Token token;
             ArrayList<String> testFiles = FileHelper.getFiles();
-            Iterator i = testFiles.iterator();
+            Iterator<String> i = testFiles.iterator();
             System.out.println(testFiles);
 
             while (i.hasNext()) {

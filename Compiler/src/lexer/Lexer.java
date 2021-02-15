@@ -139,6 +139,9 @@ public class Lexer {
         if(idToken != null)
             return idToken;
 
+        Token constantToken = verifyconstant();
+        if(constantToken != null)
+            return constantToken;
         // Error handling
         System.out.println("Malformed token: \"" + ch + "\" at line" + line);
         return null;
@@ -177,7 +180,7 @@ public class Lexer {
         
         if(ch != '"') {
             //TODO: Throw exception
-            System.out.println("Expected character: " + ch + "to be: " + '"' );
+            // System.out.println("Expected character: " + ch + "to be: " + '"' );
             return null;
         }
 
@@ -190,7 +193,7 @@ public class Lexer {
 
         if(ch != '"') {
             //TODO: Throw exception
-            System.out.println("Expected character: " + ch + "to be: " + '"' );
+            // System.out.println("Expected character: " + ch + "to be: " + '"' );
             return null;
         }
 
@@ -199,9 +202,12 @@ public class Lexer {
 
     private Token verifyLiteral() throws IOException {
         String s = getLiteral();
-        Word w = new Word(s, Tag.STRING);
-        words.put(s, w);
-        return w;
+        if(s != null) {
+            Word w = new Word(s, Tag.STRING);
+            words.put(s, w);
+            return w;
+        }
+        return null;
     }
 
     private Token verifyconstant() throws IOException {
@@ -211,12 +217,9 @@ public class Lexer {
         //     words.put(integer, w);
         //     return w;
         // }
-
-        String literal = getLiteral();
-        if(literal != null) {
-            Word w = new Word(literal, Tag.CONSTANT);
-            words.put(literal, w);
-            return w;
+        if(ch == '"')
+        {
+            return verifyLiteral();
         }
         return null;
     }
