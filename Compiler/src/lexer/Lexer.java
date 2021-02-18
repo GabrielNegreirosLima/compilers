@@ -119,7 +119,7 @@ public class Lexer
             return idToken;
         }           
 
-        Token constantToken = verifyconstant();
+        Token constantToken = verifyConstant();
         
         if(constantToken != null)
         {
@@ -210,17 +210,22 @@ public class Lexer
         return null;
     }
 
-    private Token verifyconstant() throws IOException 
+    private Token verifyConstant() throws IOException 
     {
-        // String integer = getIntegerConst();
-        // if(integer != null) {
-        //     Word w = new Word(integer, Tag.CONSTANT);
-        //     words.put(integer, w);
-        //     return w;
-        // }
         if(ch == '"')
         {
             return verifyLiteral();
+        }
+        else if(isNonZeroDigit(ch) || ch == '0')
+        {
+            StringBuffer sb = verifyIntegerConst();
+            if(sb != null)
+            {
+                String s = sb.toString();
+                Word w = new Word(s, Tag.CONSTANT);
+                words.put(s, w);
+                return w;
+            }
         }
 
         return null;
@@ -256,7 +261,7 @@ public class Lexer
         }
 
         return null;
-    } 
+    }
     
     //integer_const or real_const
     private Token verifyIsConst() throws IOException
