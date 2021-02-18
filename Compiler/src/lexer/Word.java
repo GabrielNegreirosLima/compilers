@@ -30,7 +30,7 @@ public class Word extends Token {
     }
 
     public String toString() {
-        return "" + lexeme;
+        return "<" + tag + ", " + lexeme + ">";
     }
 
     public String getLexeme() {
