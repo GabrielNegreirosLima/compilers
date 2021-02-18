@@ -6,14 +6,14 @@ import java.util.*;
 /**
  * Token formation pattern:
  * [DONE][Bruno] constant → integer_const | literal
- * [Yan] integer_const → nonzero{digit}| “0”
- * [Yan] real_const → interger_const "." digit+
+ * [DONE][Yan] integer_const → nonzero{digit}| “0”
+ * [DONE][Yan] real_const → interger_const "." digit+
  * [DONE][Bruno] literal → "“" caractere*"”" 
  * [DONE][Negreiros] identifier → letter{letter | digit| "_"}
- * [Character.isLetter(ch)] letter → [A-Za-z]
+ * [DONE][Character.isLetter(ch)] letter → [A-Za-z]
  * [DONE][Yan] digit → [0-9] = Character.isDigit(ch)
  * [DONE][Yan] nonzero→ [1-9] = isNonZeroDigit(char ch)
- * [DONE][Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
+ * [Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
  * exceto as aspas e quebra de linha
  */
 
@@ -133,25 +133,31 @@ public class Lexer
         //             return new Token('>');
         // }
 
-		// TODO: check for numbers. Implement integer_const, 
 		// real_const and digit here.
 		// Change this to implementation the correct tokens for
 		// the language. See the correct pattern 
 		// at the file's head. 
-        if (Character.isDigit(ch)) 
+        // if (Character.isDigit(ch)) 
+        // {
+        //     int value = 0;
+
+        //     do 
+        //     {
+        //         value = 10 * value + Character.digit(ch, 10);
+        //         readch();
+        //     } 
+        //     while (Character.isDigit(ch));
+
+        //     return new Num(value);
+        // }
+
+        //integer_const or real_const
+        Token constToken = verifyIsConst();
+        
+        if(constToken != null)
         {
-            int value = 0;
-
-            do 
-            {
-                value = 10 * value + Character.digit(ch, 10);
-                readch();
-            } 
-            while (Character.isDigit(ch));
-
-            return new Num(value);
-        }
-		
+            return constToken;
+        } 		
 
         // Identifiers
         Token idToken = verifyIdentifierAndReserved();
@@ -266,5 +272,69 @@ public class Lexer
     {
         int asciiValue = (int) ch;
         return (asciiValue >= 49 && asciiValue <= 57);
+    }
+
+    private StringBuffer verifyIntegerConst() throws IOException
+    {
+        StringBuffer sb = new StringBuffer();
+
+        if(isNonZeroDigit(ch))
+        {
+            do
+            {
+                sb.append(ch);
+                readch();
+            }
+            while (Character.isDigit(ch));
+
+            return sb;
+        }
+        else if(ch == '0')
+        {
+            sb.append(ch);
+            readch();
+
+            return sb;
+        }
+
+        return null;
+    } 
+    
+    //integer_const or real_const
+    private Token verifyIsConst() throws IOException
+    {
+        StringBuffer sb = new StringBuffer();
+
+        sb = verifyIntegerConst();
+
+        if(sb == null)
+        {
+            return null;
+        }
+        
+        else if(ch != '.')
+        {
+            String s = sb.toString();           
+
+            Word w = new Word(s, Tag.INTEGER);
+            words.put(s, w);
+            return w;
+        }
+
+        else
+        {
+            sb.append(ch);
+            readch();
+            sb.append(verifyIntegerConst());
+            readch();
+
+            String s = sb.toString();           
+
+            Word w = new Word(s, Tag.REAL);
+            words.put(s, w);
+            return w;
+
+            //return real
+        }
     }
 }

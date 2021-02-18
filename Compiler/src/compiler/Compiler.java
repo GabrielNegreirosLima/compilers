@@ -40,17 +40,16 @@ public class Compiler
 
                 while(!token.toString().equals("end"))
                 {
-                    token = lexer.scan();
-
                     if(token != null)
                     {
                         System.out.println(token.toString());
-                    }
-                        
+                    }   
                     else
                     {
                         System.exit(1);
                     }
+
+                    token = lexer.scan();
                         
                 }
             }
