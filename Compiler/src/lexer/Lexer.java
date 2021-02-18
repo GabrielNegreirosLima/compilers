@@ -11,27 +11,34 @@ import java.util.*;
  * [DONE][Bruno] literal → "“" caractere*"”" 
  * [DONE][Negreiros] identifier → letter{letter | digit| "_"}
  * [Character.isLetter(ch)] letter → [A-Za-z]
- * [Yan] digit → [0-9]
- * [Yan] nonzero→ [1-9]
+ * [DONE][Yan] digit → [0-9] = Character.isDigit(ch)
+ * [DONE][Yan] nonzero→ [1-9] = isNonZeroDigit(char ch)
  * [DONE][Bruno] caractere → um  dos  256  caracteres  do  conjunto  ASCII,  
  * exceto as aspas e quebra de linha
  */
 
-public class Lexer {
+public class Lexer
+{
     public static int line = 1;
     private char ch = ' ';
     private FileReader file;
 
     private Hashtable<String, Word> words = new Hashtable<String, Word>();
 
-    private void reserve(Word w) {
+    private void reserve(Word w) 
+    {
         words.put(w.getLexeme(), w);
     }
 
-    public Lexer(String fileName) throws FileNotFoundException {
-        try {
+    public Lexer(String fileName) throws FileNotFoundException 
+    {
+        try 
+        {
             file = new FileReader(fileName);
-        } catch (FileNotFoundException e) {
+        }
+        
+        catch (FileNotFoundException e) 
+        {
             System.out.println("Arquivo nao encontrado");
             throw e;
         }
@@ -55,12 +62,14 @@ public class Lexer {
         reserve(new Word("and", Tag.AND));
     }
 
-    private void readch() throws IOException {
+    private void readch() throws IOException 
+    {
         ch = (char) file.read();
 		ch = Character.toLowerCase(ch);
     }
 
-    private boolean readch(char c) throws IOException {
+    private boolean readch(char c) throws IOException 
+    {
         readch();
 
         if (ch != c)
@@ -70,18 +79,25 @@ public class Lexer {
         return true;
     }
 
-    public Token scan() throws IOException {
+    public Token scan() throws IOException 
+    {
 
         // Ignore delimiters
-		for (;; readch()) {
+		for (;; readch()) 
+        {
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
-                continue;
+                {
+                    continue;
+                }
+
             // Ignore comments
 			else if (ch == '%')
 				while (ch != '%') 
 					readch();
+
             else if (ch == '\n')
                 line++; // count lines
+
             else
                 break;
         }
@@ -122,13 +138,16 @@ public class Lexer {
 		// Change this to implementation the correct tokens for
 		// the language. See the correct pattern 
 		// at the file's head. 
-        if (Character.isDigit(ch)) {
+        if (Character.isDigit(ch)) 
+        {
             int value = 0;
 
-            do {
+            do 
+            {
                 value = 10 * value + Character.digit(ch, 10);
                 readch();
-            } while (Character.isDigit(ch));
+            } 
+            while (Character.isDigit(ch));
 
             return new Num(value);
         }
@@ -136,25 +155,36 @@ public class Lexer {
 
         // Identifiers
         Token idToken = verifyIdentifierAndReserved();
+
         if(idToken != null)
+        {
             return idToken;
+        }           
 
         Token constantToken = verifyconstant();
+        
         if(constantToken != null)
+        {
             return constantToken;
+        }
+            
         // Error handling
-        System.out.println("Malformed token: \"" + ch + "\" at line" + line);
+        System.out.println("Malformed token: \"" + ch + "\" at line " + line);
         return null;
     }
 
-    private Token verifyIdentifierAndReserved() throws IOException{
-        if (Character.isLetter(ch)) {
+    private Token verifyIdentifierAndReserved() throws IOException
+    {
+        if (Character.isLetter(ch)) 
+        {
             StringBuffer sb = new StringBuffer();
 
-            do {
+            do 
+            {
                 sb.append(ch);
                 readch();
-            } while (Character.isLetterOrDigit(ch) || ch == '_');
+            } 
+            while (Character.isLetterOrDigit(ch) || ch == '_');
 
             String s = sb.toString();
             Word w = (Word) words.get(s);
@@ -170,27 +200,32 @@ public class Lexer {
         return null;
     }
 
-    private boolean verifyCharacter() throws IOException {
+    private boolean verifyCharacter() throws IOException 
+    {
         int asciiValue = (int) ch;
         return ((asciiValue >= 0 && asciiValue <= 255) && (ch != '"' && ch != '\n'));
     }
 
-    private String getLiteral() throws IOException {
+    private String getLiteral() throws IOException 
+    {
         StringBuffer sb = new StringBuffer();
         
-        if(ch != '"') {
+        if(ch != '"') 
+        {
             //TODO: Throw exception
             return null;
         }
 
         readch();
 
-        while(verifyCharacter()) {
+        while(verifyCharacter()) 
+        {
             sb.append(ch);
             readch();
         }
 
-        if(ch != '"') {
+        if(ch != '"') 
+        {
             //TODO: Throw exception
             return null;
         }
@@ -198,9 +233,12 @@ public class Lexer {
         return sb.toString();
     }
 
-    private Token verifyLiteral() throws IOException {
+    private Token verifyLiteral() throws IOException 
+    {
         String s = getLiteral();
-        if(s != null) {
+        
+        if(s != null) 
+        {
             Word w = new Word(s, Tag.STRING);
             words.put(s, w);
             return w;
@@ -208,7 +246,8 @@ public class Lexer {
         return null;
     }
 
-    private Token verifyconstant() throws IOException {
+    private Token verifyconstant() throws IOException 
+    {
         // String integer = getIntegerConst();
         // if(integer != null) {
         //     Word w = new Word(integer, Tag.CONSTANT);
@@ -219,7 +258,13 @@ public class Lexer {
         {
             return verifyLiteral();
         }
+
         return null;
     }
 
+    private boolean isNonZeroDigit(char ch)
+    {
+        int asciiValue = (int) ch;
+        return (asciiValue >= 49 && asciiValue <= 57);
+    }
 }
