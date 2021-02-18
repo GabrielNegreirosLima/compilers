@@ -68,7 +68,7 @@ public class Lexer
 		ch = Character.toLowerCase(ch);
     }
 
-    private boolean readch(char c) throws IOException 
+    /*private boolean readch(char c) throws IOException 
     {
         readch();
 
@@ -77,7 +77,7 @@ public class Lexer
 
         ch = ' ';
         return true;
-    }
+    }*/
 
     public Token scan() throws IOException 
     {

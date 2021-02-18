@@ -31,14 +31,16 @@ public class Compiler
             Token token;
             ArrayList<String> testFiles = FileHelper.getFiles();
             Iterator<String> i = testFiles.iterator();
-            System.out.println(testFiles);
+            int counter = 0;
 
             while (i.hasNext()) 
             {
                 lexer = new Lexer(i.next().toString());
                 token = lexer.scan();
 
-                while(!token.toString().equals("end"))
+                System.out.println("Arquivo " + testFiles.get(counter));
+
+                while(!token.toString().equals("<257, stop>"))
                 {
                     if(token != null)
                     {
@@ -52,6 +54,8 @@ public class Compiler
                     token = lexer.scan();
                         
                 }
+
+                counter++;
             }
 
         } 
