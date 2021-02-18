@@ -173,7 +173,13 @@ public class Lexer
         {
             return constantToken;
         }
-            
+
+        if(verifyCharacter()){
+            Token t = new Token(ch);
+            readch();
+            return t;
+        }
+
         // Error handling
         System.out.println("Malformed token: \"" + ch + "\" at line " + line);
         return null;
