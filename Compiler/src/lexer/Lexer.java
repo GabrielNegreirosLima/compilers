@@ -320,7 +320,8 @@ public class Lexer
             else if (ch == '%'){
                 do{
                     readch();
-                } while (ch != '%');
+                } while (ch != '%' || (int)ch == 65535);
+                
             }
 
             else if (ch == '\n')

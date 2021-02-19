@@ -60,7 +60,10 @@ public class Compiler
             }
 
         } 
-        
+        catch(NullPointerException ex)
+        {
+            
+        }
         catch (Exception e) 
         {
             System.out.println("Tests files not found.");
