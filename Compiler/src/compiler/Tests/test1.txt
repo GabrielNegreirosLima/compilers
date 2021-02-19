@@ -1,3 +1,4 @@
+101.1a
 init
     a, b, $c, is integer;
     result is real;

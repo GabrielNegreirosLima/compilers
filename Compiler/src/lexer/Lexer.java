@@ -62,6 +62,10 @@ public class Lexer
         reserve(new Word("and", Tag.AND));
     }
 
+    public String getSymbolTable(){
+        return words.toString();
+    }
+
     private void readch() throws IOException 
     {
         ch = (char) file.read();
@@ -83,24 +87,7 @@ public class Lexer
     {
 
         // Ignore delimiters
-		for (;; readch()) 
-        {
-            if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
-                {
-                    continue;
-                }
-
-            // Ignore comments
-			else if (ch == '%')
-				while (ch != '%') 
-					readch();
-
-            else if (ch == '\n')
-                line++; // count lines
-
-            else
-                break;
-        }
+		verifyDelimiters();
 
 
         //integer_const or real_const
@@ -275,6 +262,7 @@ public class Lexer
             return null;
         }
         
+        // integer_const
         else if(ch != '.')
         {
             String s = sb.toString();           
@@ -284,6 +272,7 @@ public class Lexer
             return w;
         }
 
+        // real_const
         else
         {
             sb.append(ch);
@@ -298,6 +287,27 @@ public class Lexer
             return w;
 
             //return real
+        }
+    }
+
+    private void verifyDelimiters() throws IOException{
+
+        for(;; readch()){
+            if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
+            {
+                continue;
+            }
+
+            // Ignore comments
+            else if (ch == '%')
+                while (ch != '%') 
+                    readch();
+
+            else if (ch == '\n')
+                line++; // count lines
+
+            else
+                break;
         }
     }
 }

@@ -38,7 +38,7 @@ public class Compiler
                 lexer = new Lexer(i.next().toString());
                 token = lexer.scan();
 
-                System.out.println("Arquivo " + testFiles.get(counter));
+                System.out.println("\n\nArquivo " + testFiles.get(counter));
 
                 while(!token.toString().equals("<257, stop>"))
                 {
@@ -56,6 +56,7 @@ public class Compiler
                 }
 
                 counter++;
+                System.out.println(lexer.getSymbolTable());
             }
 
         } 
