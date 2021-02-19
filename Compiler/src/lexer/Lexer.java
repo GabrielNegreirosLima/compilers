@@ -225,9 +225,9 @@ public class Lexer
 
         if(ch != '"') 
         {
-            //TODO: Throw exception
             return null;
         }
+        readch();
 
         return sb.toString();
     }
