@@ -87,9 +87,9 @@ public class Lexer
     {
 
         // Ignore delimiters
-		verifyDelimiters();
-
-		// TODO: check for operators.
+        verifyDelimiters();
+        
+        // TODO: check for operators.
 		// Change this to implement the correct tokens for the 
 		// language. See the correct pattern at the file's head. 
         // switch (ch) {
@@ -120,24 +120,6 @@ public class Lexer
         //             return new Token('>');
         // }
 
-		// real_const and digit here.
-		// Change this to implementation the correct tokens for
-		// the language. See the correct pattern 
-		// at the file's head. 
-        // if (Character.isDigit(ch)) 
-        // {
-        //     int value = 0;
-
-        //     do 
-        //     {
-        //         value = 10 * value + Character.digit(ch, 10);
-        //         readch();
-        //     } 
-        //     while (Character.isDigit(ch));
-
-        //     return new Num(value);
-        // }
-
         //integer_const or real_const
         Token constToken = verifyIsConst();
         
@@ -163,8 +145,20 @@ public class Lexer
 
         if(verifyCharacter()){
             Token t = new Token(ch);
+            char current = ch;
+
             readch();
-            return t;
+            if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
+                return t;
+
+            else if (ch == '\n'){
+                line++; // count lines
+                return t;
+            }
+
+            // Error handling
+            System.out.println("Malformed character token: \"" + current + "\" at line " + line);
+            return null;
         }
 
         // Error handling
