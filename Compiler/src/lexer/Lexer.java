@@ -69,7 +69,7 @@ public class Lexer
     private void readch() throws IOException 
     {
         ch = (char) file.read();
-		ch = Character.toLowerCase(ch);
+        ch = Character.toLowerCase(ch);
     }
 
     private boolean readch(char c) throws IOException 
@@ -87,7 +87,13 @@ public class Lexer
     {
 
         // Ignore delimiters
-        verifyDelimiters();
+        int charLine = verifyDelimiters();
+        if(charLine != 0){
+            System.out.println("Comment opened at line " + charLine + 
+                                " and not closed");
+            return null;
+        } 
+
         
         Token reservedOperator = verifyReservedOperators();
 
@@ -308,7 +314,7 @@ public class Lexer
         }
     }
 
-    private void verifyDelimiters() throws IOException{
+    private int verifyDelimiters() throws IOException{
 
         for(;; readch()){
             if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
@@ -318,9 +324,13 @@ public class Lexer
 
             // Ignore comments
             else if (ch == '%'){
+                int currentLine = line;
                 do{
                     readch();
-                } while (ch != '%' || (int)ch == 65535);
+                    currentLine = line;
+                    if((int)ch == 65535)
+                        return currentLine;
+                } while (ch != '%');
                 
             }
 
@@ -330,6 +340,8 @@ public class Lexer
             else
                 break;
         }
+
+        return 0;
     }
 
     private Token verifyReservedOperators() throws IOException
@@ -389,5 +401,9 @@ public class Lexer
                 return Word.endCommand;
             default: return null;
         }
+    }
+
+    public void clearLines(){
+        this.line = 0;
     }
 }

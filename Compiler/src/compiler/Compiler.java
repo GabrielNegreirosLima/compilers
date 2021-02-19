@@ -57,6 +57,7 @@ public class Compiler
 
                 counter++;
                 System.out.println(lexer.getSymbolTable());
+                lexer.clearLines();
             }
 
         } 
