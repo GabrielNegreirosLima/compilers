@@ -334,6 +334,7 @@ public class Lexer
         switch (ch)
         {
             case '=':
+                readch();
                 return Word.equals;
             case '<':
                 readch();
@@ -374,9 +375,6 @@ public class Lexer
             case '/':
                 readch();
                 return Word.divide;
-            // case '"':
-            //     readch();
-            //     return Word.quote;
             case '(':
                 readch();
                 return Word.openParenthesis;
