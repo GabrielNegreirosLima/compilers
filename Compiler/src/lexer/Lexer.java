@@ -62,13 +62,17 @@ public class Lexer
         reserve(new Word("and", Tag.AND));
     }
 
+    public String getSymbolTable(){
+        return words.toString();
+    }
+
     private void readch() throws IOException 
     {
         ch = (char) file.read();
 		ch = Character.toLowerCase(ch);
     }
 
-    private boolean readch(char c) throws IOException 
+    /*private boolean readch(char c) throws IOException 
     {
         readch();
 
@@ -77,30 +81,13 @@ public class Lexer
 
         ch = ' ';
         return true;
-    }
+    }*/
 
     public Token scan() throws IOException 
     {
 
         // Ignore delimiters
-		for (;; readch()) 
-        {
-            if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
-                {
-                    continue;
-                }
-
-            // Ignore comments
-			else if (ch == '%')
-				while (ch != '%') 
-					readch();
-
-            else if (ch == '\n')
-                line++; // count lines
-
-            else
-                break;
-        }
+		verifyDelimiters();
 
 		// TODO: check for operators.
 		// Change this to implement the correct tokens for the 
@@ -323,6 +310,7 @@ public class Lexer
             return null;
         }
         
+        // integer_const
         else if(ch != '.')
         {
             String s = sb.toString();           
@@ -332,6 +320,7 @@ public class Lexer
             return w;
         }
 
+        // real_const
         else
         {
             sb.append(ch);
@@ -346,6 +335,27 @@ public class Lexer
             return w;
 
             //return real
+        }
+    }
+
+    private void verifyDelimiters() throws IOException{
+
+        for(;; readch()){
+            if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b')
+            {
+                continue;
+            }
+
+            // Ignore comments
+            else if (ch == '%')
+                while (ch != '%') 
+                    readch();
+
+            else if (ch == '\n')
+                line++; // count lines
+
+            else
+                break;
         }
     }
 }
