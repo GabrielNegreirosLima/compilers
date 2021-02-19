@@ -317,11 +317,11 @@ public class Lexer
             }
 
             // Ignore comments
-            else if (ch == '%')
+            else if (ch == '%'){
                 do{
                     readch();
                 } while (ch != '%');
-                   
+            }
 
             else if (ch == '\n')
                 line++; // count lines
