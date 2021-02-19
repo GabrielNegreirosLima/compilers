@@ -89,36 +89,11 @@ public class Lexer
         // Ignore delimiters
         verifyDelimiters();
         
-        switch (ch)
+        Token reservedOperator = verifyReservedOperators();
+
+        if(reservedOperator != null)
         {
-            case '=':
-                return Word.equals;
-            case '<':
-                readch();
-                if (ch == '=')
-                    return Word.lessEqual;
-                else if(ch == '>')
-                    return Word.notEqual;
-                else
-                    return Word.less;
-            case '>':
-                if (readch('='))
-                    return Word.greaterEqual;
-                else
-                    return Word.greater;
-            case ':':
-                if (readch('='))
-                    return Word.assign;
-                else
-                    return new Token(':');
-            case '+': return Word.sum;
-            case '-': return Word.minus;
-            case '*': return Word.times;
-            case '/': return Word.divide;
-            case '"': return Word.quote;
-            case '(': return Word.openParenthesis;
-            case ')': return Word.closeParenthesis;
-            case ';': return Word.endCommand;
+            return reservedOperator;
         }
 
         //integer_const or real_const
@@ -351,6 +326,67 @@ public class Lexer
 
             else
                 break;
+        }
+    }
+
+    private Token verifyReservedOperators() throws IOException
+    {
+        switch (ch)
+        {
+            case '=':
+                return Word.equals;
+            case '<':
+                readch();
+                if (ch == '=')
+                {
+                    readch();
+                    return Word.lessEqual;
+                }
+                else if(ch == '>')
+                {
+                    readch();
+                    return Word.notEqual;
+                }
+                return Word.less;
+            case '>':
+                if (readch('='))
+                {
+                    readch();
+                    return Word.greaterEqual;
+                }
+                return Word.greater;
+            case ':':
+                if (readch('='))
+                {
+                    readch();
+                    return Word.assign;
+                }
+                return new Token(':');
+            case '+': 
+                readch();
+                return Word.sum;
+            case '-':
+                readch();
+                return Word.minus;
+            case '*':
+                readch();
+                return Word.times;
+            case '/':
+                readch();
+                return Word.divide;
+            // case '"':
+            //     readch();
+            //     return Word.quote;
+            case '(':
+                readch();
+                return Word.openParenthesis;
+            case ')':
+                readch();
+                return Word.closeParenthesis;
+            case ';':
+                readch();
+                return Word.endCommand;
+            default: return null;
         }
     }
 }

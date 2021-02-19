@@ -19,7 +19,7 @@ public class Word extends Token {
     public static final Word divide = new Word("/", Tag.DIVIDE);
 
     //Grammar
-    public static final Word quote = new Word("\"", Tag.QUOTE);
+    // public static final Word quote = new Word("\"", Tag.QUOTE);
     public static final Word openParenthesis = new Word("(", Tag.OPEN_PARENTHESIS);
     public static final Word closeParenthesis = new Word(")", Tag.CLOSE_PARENTHESIS);
     public static final Word endCommand = new Word(";", Tag.END_COMMAND);
