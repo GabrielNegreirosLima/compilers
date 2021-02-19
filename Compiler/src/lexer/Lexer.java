@@ -72,7 +72,7 @@ public class Lexer
 		ch = Character.toLowerCase(ch);
     }
 
-    /*private boolean readch(char c) throws IOException 
+    private boolean readch(char c) throws IOException 
     {
         readch();
 
@@ -81,7 +81,7 @@ public class Lexer
 
         ch = ' ';
         return true;
-    }*/
+    }
 
     public Token scan() throws IOException 
     {
@@ -89,36 +89,37 @@ public class Lexer
         // Ignore delimiters
         verifyDelimiters();
         
-        // TODO: check for operators.
-		// Change this to implement the correct tokens for the 
-		// language. See the correct pattern at the file's head. 
-        // switch (ch) {
-        //     case '&':
-        //         if (readch('&'))
-        //             return Word.AND;
-        //         else
-        //             return new Token('&');
-        //     case '|':
-        //         if (readch('|'))
-        //             return Word.or;
-        //         else
-        //             return new Token('|');
-        //     case '=':
-        //         if (readch('='))
-        //             return Word.eq;
-        //         else
-        //             return new Token('=');
-        //     case '<':
-        //         if (readch('='))
-        //             return Word.le;
-        //         else
-        //             return new Token('<');
-        //     case '>':
-        //         if (readch('='))
-        //             return Word.ge;
-        //         else
-        //             return new Token('>');
-        // }
+        switch (ch)
+        {
+            case '=':
+                return Word.equals;
+            case '<':
+                readch();
+                if (ch == '=')
+                    return Word.lessEqual;
+                else if(ch == '>')
+                    return Word.notEqual;
+                else
+                    return Word.less;
+            case '>':
+                if (readch('='))
+                    return Word.greaterEqual;
+                else
+                    return Word.greater;
+            case ':':
+                if (readch('='))
+                    return Word.assign;
+                else
+                    return new Token(':');
+            case '+': return Word.sum;
+            case '-': return Word.minus;
+            case '*': return Word.times;
+            case '/': return Word.divide;
+            case '"': return Word.quote;
+            case '(': return Word.openParenthesis;
+            case ')': return Word.closeParenthesis;
+            case ';': return Word.endCommand;
+        }
 
         //integer_const or real_const
         Token constToken = verifyIsConst();
