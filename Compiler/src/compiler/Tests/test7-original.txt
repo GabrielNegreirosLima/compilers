@@ -1,0 +1,27 @@
+init
+    %
+    programa teste
+    criado pelo grupo
+    %
+    x, y, z, $ menor is real;
+
+    write("Digite uma altura: ");
+    read(x);
+    write("Digite outra altura: ");
+    read(y;
+    write("Digite mais uma altura: ");
+    read(z);
+
+    menor := 0;
+    if ( x<y and x<z )
+        menor := x;
+
+    else if (y<z)
+        menor := y;
+
+    else
+        menor := z;
+
+    write("Menor altura: ");
+    write(menor)
+stop
