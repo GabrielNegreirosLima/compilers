@@ -33,6 +33,7 @@ public class Lexer
 
     public Lexer(String fileName) throws FileNotFoundException 
     {
+        this.isEOF = false;
         try 
         {
             file = new FileReader(fileName);
@@ -152,7 +153,7 @@ public class Lexer
 
         if((int)ch == 65535){
             isEOF = true;
-            return null;
+            return (Token) new Object();
         }   
 
         System.out.println("Malformed token: \"" + ch + "\" at line " + line);

@@ -39,24 +39,21 @@ public class Compiler
                 token = lexer.scan();
 
                 System.out.println("\n\nArquivo " + testFiles.get(counter));
-                
+                boolean isEOF = lexer.getIsEOF();
 
                 while(!token.toString().equals("<257, stop>"))
                 {
-                    if(lexer.getIsEOF())
-                        break;
-                        
+
                     if(token != null)
                     {
                         System.out.println(token.toString());
-                    }   
+                    }
                     else
                     {
                         System.exit(1);
                     }
 
                     token = lexer.scan();
-                        
                 }
 
                 counter++;
