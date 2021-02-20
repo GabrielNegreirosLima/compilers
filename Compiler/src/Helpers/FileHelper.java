@@ -15,7 +15,7 @@ public class FileHelper {
         else{
             divisor = "/";
         }
-        String path = divisor + "src" + divisor + "compiler" + divisor + "Tests";    
+        String path = divisor + "Compiler" + divisor + "src" + divisor + "compiler" + divisor + "Tests";    
         
         String fullPath = directory.getAbsolutePath() + path;       
         
