@@ -153,7 +153,7 @@ public class Lexer
 
         if((int)ch == 65535){
             isEOF = true;
-            return (Token) new Object();
+            return null;
         }   
 
         System.out.println("Malformed token: \"" + ch + "\" at line " + line);

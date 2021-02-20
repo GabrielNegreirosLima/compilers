@@ -43,7 +43,7 @@ public class Compiler
 
                 while(!token.toString().equals("<257, stop>"))
                 {
-
+                    
                     if(token != null)
                     {
                         System.out.println(token.toString());
@@ -54,6 +54,11 @@ public class Compiler
                     }
 
                     token = lexer.scan();
+                    
+                    isEOF =  lexer.getIsEOF();
+                    if(isEOF){
+                        break;
+                    }
                 }
 
                 counter++;
