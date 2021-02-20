@@ -21,6 +21,7 @@ public class Lexer
 {
     public static int line = 1;
     private char ch = ' ';
+    private boolean isEOF = false;
     private FileReader file;
 
     private Hashtable<String, Word> words = new Hashtable<String, Word>();
@@ -144,6 +145,16 @@ public class Lexer
         }
 
         // Error handling
+        if(ch == '\n'){
+            System.out.println("Malformed token: \"\\n\" at line " + line);
+            return null;
+        }
+
+        if((int)ch == 65535){
+            isEOF = true;
+            return null;
+        }   
+
         System.out.println("Malformed token: \"" + ch + "\" at line " + line);
         return null;
     }
@@ -404,6 +415,10 @@ public class Lexer
     }
 
     public void clearLines(){
-        this.line = 0;
+        Lexer.line = 1;
+    }
+
+    public boolean getIsEOF(){
+        return isEOF;
     }
 }
