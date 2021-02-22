@@ -5,9 +5,8 @@
  */
 package compiler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import Helpers.FileHelper;
 import lexer.Lexer;
 import lexer.Token;
@@ -29,45 +28,42 @@ public class Compiler
         {
             Lexer lexer;
             Token token;
-            ArrayList<String> testFiles = FileHelper.getFiles();
-            Iterator<String> i = testFiles.iterator();
-            int counter = 0;
+            System.out.println("Compilador.\nPara compilar um arquivo, o mesmo deve estar presentes na pasta \"Tests\"");
+            System.out.println("Digite o nome do arquivo para ser compilado:");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String fileName = reader.readLine();
 
-            while (i.hasNext()) 
+            lexer = new Lexer(FileHelper.getFullPath() + fileName);
+            token = lexer.scan();
+
+            System.out.println("\n\nArquivo " + fileName);
+            boolean isEOF = lexer.getIsEOF();
+
+            while(!token.toString().equals("<257, stop>"))
             {
-                lexer = new Lexer(i.next().toString());
-                token = lexer.scan();
-
-                System.out.println("\n\nArquivo " + testFiles.get(counter));
-                boolean isEOF = lexer.getIsEOF();
-
-                while(!token.toString().equals("<257, stop>"))
+                
+                if(token != null)
                 {
-                    
-                    if(token != null)
-                    {
-                        System.out.println(token.toString());
-                    }
-                    else
-                    {
-                        System.exit(1);
-                    }
-
-                    token = lexer.scan();
-                    
-                    isEOF =  lexer.getIsEOF();
-                    if(isEOF){
-                        break;
-                    }
+                    System.out.println(token.toString());
+                }
+                else
+                {
+                    System.exit(1);
                 }
 
-                counter++;
-                System.out.println(lexer.getSymbolTable());
-                lexer.clearLines();
+                token = lexer.scan();
+                
+                isEOF =  lexer.getIsEOF();
+                if(isEOF){
+                    break;
+                }
             }
 
-        } 
-        catch(NullPointerException ex)
+            System.out.println(lexer.getSymbolTable());
+            lexer.clearLines();
+
+        }
+        catch(NullPointerException e)
         {
             
         }
