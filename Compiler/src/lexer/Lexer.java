@@ -3,19 +3,6 @@ package lexer;
 import java.io.*;
 import java.util.*;
 
-/**
- * Token formation pattern:
- * [DONE][Bruno] constant -> integer_const | literal
- * [DONE][Yan] integer_const -> nonzero{digit}| "0"
- * [DONE][Yan] real_const -> interger_const "." digit+
- * [DONE][Bruno] literal -> "\"" caractere*"\"" 
- * [DONE][Negreiros] identifier -> letter{letter | digit| "_"}
- * [DONE][Character.isLetter(ch)] letter -> [A-Za-z]
- * [DONE][Yan] digit -> [0-9] = Character.isDigit(ch)
- * [DONE][Yan] nonzero -> [1-9] = isNonZeroDigit(char ch)
- * [Bruno] caractere -> um  dos  256  caracteres  do  conjunto  ASCII,  
- * exceto as aspas e quebra de linha
- */
 
 public class Lexer
 {
@@ -245,7 +232,7 @@ public class Lexer
             if(sb != null)
             {
                 String s = sb.toString();
-                Word w = new Word(s, Tag.CONSTANT);
+                Word w = new Word(s, Tag.INTEGER);
                 words.put(s, w);
                 return w;
             }
