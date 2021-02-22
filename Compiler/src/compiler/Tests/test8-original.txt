@@ -7,9 +7,8 @@ init
     read (num_1);
     write("Numero 2:" );
     read (num_2);
-    media := num_1+num_2;
+    soma := num_1+num_2;
 
-    while(cont > 0)
     media := soma / 2
     write("Media: ");
     write (media);
