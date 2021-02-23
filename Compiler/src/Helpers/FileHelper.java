@@ -23,7 +23,8 @@ public class FileHelper {
         File directory = new File("");
         String divisor = getPathDivisor();
         
-        String path = divisor + "Compiler" + divisor + "src" + divisor + "compiler" + divisor + "Tests" + divisor;    
+        String path =  divisor + "src" + divisor + "compiler" + divisor + "Tests" + divisor;    
+        System.out.println(directory.getAbsolutePath() + path);
         
         return directory.getAbsolutePath() + path;
     }
