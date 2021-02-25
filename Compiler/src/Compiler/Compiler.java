@@ -53,13 +53,13 @@ public class Compiler
         {
             
         }
-        catch(FileNotFoundException e)
+        catch(FileNotFoundException e)  
         {
             System.out.println("Tests file not found.");
         }
         catch (Exception e) 
         {
             System.out.println("Error at" + e);
-        }        
+        }
     }    
 }
