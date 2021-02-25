@@ -27,8 +27,7 @@ public class Lexer
         }
         
         catch (FileNotFoundException e) 
-        {
-            System.out.println("Arquivo nao encontrado");
+        {            
             throw e;
         }
 

@@ -1,20 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Compiler;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import Helpers.FileHelper;
+import java.io.FileNotFoundException;
+
 import Lexer.Lexer;
 import Lexer.Token;
 
-/**
- *
- * @author yanvi
- */
 public class Compiler 
 {
 
@@ -22,18 +12,14 @@ public class Compiler
      * @param args the command line arguments
      */
     public static void main(String[] args) 
-    {
-        // TODO code application logic here
+    {        
         try 
         {
             Lexer lexer;
             Token token;
-            System.out.println("Compilador.\nPara compilar um arquivo, o mesmo deve estar presentes na pasta \"Tests\"");
-            System.out.println("Digite o nome do arquivo para ser compilado:");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String fileName = reader.readLine();
+            String fileName = args[0];
 
-            lexer = new Lexer(FileHelper.getFullPath() + fileName);
+            lexer = new Lexer(fileName);
             token = lexer.scan();
 
             System.out.println("\n\nArquivo " + fileName);
@@ -67,9 +53,13 @@ public class Compiler
         {
             
         }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Tests file not found.");
+        }
         catch (Exception e) 
         {
-            System.out.println("Tests files not found.");
+            System.out.println("Error at" + e);
         }        
     }    
 }
