@@ -1,4 +1,4 @@
-package lexer;
+package Lexer;
 
 public class Num extends Token {
 	public final int value;

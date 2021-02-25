@@ -1,4 +1,4 @@
-package lexer;
+package Lexer;
 
 public class Tag {
     public final static int

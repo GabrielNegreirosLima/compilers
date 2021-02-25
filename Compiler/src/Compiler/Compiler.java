@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compiler;
+package Compiler;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import Helpers.FileHelper;
-import lexer.Lexer;
-import lexer.Token;
+import Lexer.Lexer;
+import Lexer.Token;
 
 /**
  *
