@@ -36,6 +36,7 @@ public class Lexer
         reserve(new Word("stop", Tag.STOP));
         reserve(new Word("read", Tag.READ));
         reserve(new Word("write", Tag.WRITE));
+        reserve(new Word("type", Tag.TYPE));
         reserve(new Word("is", Tag.IS));
         reserve(new Word("integer", Tag.INTEGER));
         reserve(new Word("string", Tag.STRING));
@@ -346,6 +347,9 @@ public class Lexer
     {
         switch (ch)
         {
+            case ',':
+                readch();
+                return Word.coma;
             case '=':
                 readch();
                 return Word.equals;

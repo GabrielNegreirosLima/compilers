@@ -23,6 +23,7 @@ public class Word extends Token {
     public static final Word openParenthesis = new Word("(", Tag.OPEN_PARENTHESIS);
     public static final Word closeParenthesis = new Word(")", Tag.CLOSE_PARENTHESIS);
     public static final Word endCommand = new Word(";", Tag.END_COMMAND);
+    public static final Word coma = new Word(",", Tag.COMA);
 
     public Word(String s, int tag) {
         super(tag);

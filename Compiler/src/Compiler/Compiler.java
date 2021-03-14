@@ -3,7 +3,6 @@ package Compiler;
 import java.io.FileNotFoundException;
 
 import Lexer.Lexer;
-import Lexer.Token;
 import Parser.Parser;
 
 public class Compiler 
