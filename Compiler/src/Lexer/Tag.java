@@ -16,28 +16,28 @@ public class Tag {
         STRING = 263,
         REAL = 264,
         CONSTANT = 265,
+        ASSIGN = 266, // :=
 
         //Conditionals
-        IF = 266,
-        ELSE = 267,
-        BEGIN = 268,
-        END = 269,
-        DO = 270,
-        WHILE = 271,
+        IF = 267,
+        ELSE = 268,
+        BEGIN = 269,
+        END = 270,
+        DO = 271,
+        WHILE = 272,
 
         //Logical Operators
-        NOT = 272,
-        OR = 273,
-        AND = 274,
-        ASSIGN = 275, // :=
-        GREATER = 276, // >
-        GREATER_EQUAL = 277, // >=
-        LESS = 278, // <
-        LESS_EQUAL = 279, //<=
-        NOT_EQUAL = 280, // <>
-        EQUALS = 281, // =
+        GREATER = 273, // >
+        GREATER_EQUAL = 274, // >=
+        LESS = 275, // <
+        LESS_EQUAL = 276, //<=
+        NOT_EQUAL = 277, // <>
+        EQUALS = 278, // =
 
         //Arithmetic Operators
+        NOT = 279,
+        OR = 280,
+        AND = 281,
         SUM = 282, // +
         MINUS = 283, // -
         TIMES = 284, // *
