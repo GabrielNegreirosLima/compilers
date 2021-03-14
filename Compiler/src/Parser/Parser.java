@@ -20,12 +20,11 @@ public class Parser {
         advance();
     }
 
+    /*
+     * Block of basic functions of the Parser 
+     */
     public void parse() throws IOException{
-
-        while(tok!=null){
-            System.out.println(tok.toString());
-            advance();
-        }
+        program(); eat(null);
     }
 
     private void advance() throws IOException{
@@ -64,5 +63,131 @@ public class Parser {
 
     private void error(Token t){
         System.out.println("Unexpected token " + t.toString());
+    }
+
+
+    /*
+     * Block of grammar assertion
+     */
+
+    private void program(){
+
+    }
+
+    private void program2(){
+        
+    }
+
+    private void declList(){
+        
+    }
+
+    private void declList2(){
+        
+    }
+
+    private void decl(){
+        
+    }
+
+    private void identList(){
+        
+    }
+
+    private void identList2(){
+        
+    }
+
+    private void type(){
+        
+    }
+
+    private void stmtList(){
+        
+    }
+
+    private void stmt(){
+        
+    }
+
+    private void assignStmt(){
+        
+    }
+
+    private void ifStmt(){
+        
+ 
+    }
+
+    private void ifStmt2(){
+        
+    }
+
+    private void condition(){
+        
+    }
+
+    private void doStmt(){
+        
+    }
+
+    private void doSuffix(){
+        
+    }
+
+    private void readStmt(){
+        
+    }
+
+    private void writeStmt(){
+        
+    }
+
+    private void writable(){
+        
+    }
+
+    private void expression(){
+        
+    }
+
+    private void expression2(){
+        
+    }
+
+    private void simpleExpr(){
+        
+    }
+
+    private void simpleExpr2(){
+        
+    }
+
+    private void term(){
+        
+    }
+
+    private void term2(){
+        
+    }
+
+    private void factorA(){
+        
+    }
+
+    private void factor(){
+        
+    }
+
+    private void relop(){
+        
+    }
+
+    private void addop(){
+        
+    }
+
+    private void mulop(){
+        
     }
 }
