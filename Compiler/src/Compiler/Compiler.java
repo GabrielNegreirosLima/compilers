@@ -25,7 +25,7 @@ public class Compiler
             System.out.println("\n\nArquivo " + fileName);
             boolean isEOF = lexer.getIsEOF();
 
-            while(!token.toString().equals("<257, stop>"))
+            while(true)
             {
                 
                 if(token != null)

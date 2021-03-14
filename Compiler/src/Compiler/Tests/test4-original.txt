@@ -1,16 +1,16 @@
 init
-
-    i, j, k, total is integer;
+    % Outro programa de teste
+    i, j, k, @total is integer;
     nome is string
 
     write("Digite o seu nome: ");
     read(nome);
-    write("Digite um valor inteiro: ");
+    write("Digite um valor inteiro: );
     read (I);
     k := i * (5-i * 50 / 10;
     j := i * 10;
     k := i* j / k;
-    k := 4 + a;
+    k := 4 + a $;
     write(nome);
     write(", os números gerados sao: ");
     write(i);

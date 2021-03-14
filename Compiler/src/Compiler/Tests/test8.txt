@@ -1,0 +1,15 @@
+init
+    %media dois numeros inteiros% 
+    media is real;
+    num_1, num_2 is integer;
+
+    write("Numero 1:" );
+    read (num_1);
+    write("Numero 2:" );
+    read (num_2);
+    soma := num_1+num_2;
+
+    media := soma / 2
+    write("Media: ");
+    write (media);
+sto

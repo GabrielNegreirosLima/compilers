@@ -1,5 +1,5 @@
 init
-    a, b, c, is integer;
+    a, b, $c, is integer;
     result is real;
 
     write("Digite o valor de a:"
