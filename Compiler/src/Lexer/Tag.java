@@ -15,6 +15,7 @@ public class Tag {
         STRING = 262,
         REAL = 263,
         CONSTANT = 290,
+        ASSIGN = 273, // :=
 
         //Conditionals
         IF = 264,
@@ -25,10 +26,6 @@ public class Tag {
         WHILE = 269,
 
         //Logical Operators
-        NOT = 270,
-        OR = 271,
-        AND = 272,
-        ASSIGN = 273, // :=
         GREATER = 274, // >
         GREATER_EQUAL = 275, // >=
         LESS = 276, // <
@@ -37,6 +34,9 @@ public class Tag {
         EQUALS = 279, // =
 
         //Arithmetic Operators
+        NOT = 270,
+        OR = 271,
+        AND = 272,
         SUM = 280, // +
         MINUS = 281, // -
         TIMES = 282, // *
