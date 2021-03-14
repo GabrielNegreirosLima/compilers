@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import Lexer.Lexer;
 import Lexer.Token;
+import Parser.Parser;
 
 public class Compiler 
 {
@@ -16,37 +17,15 @@ public class Compiler
         try 
         {
             Lexer lexer;
-            Token token;
+            Parser parser;
             String fileName = args[0];
 
+            
             lexer = new Lexer(fileName);
-            token = lexer.scan();
-
+            parser = new Parser(lexer);
+            
             System.out.println("\n\nArquivo " + fileName);
-            boolean isEOF = lexer.getIsEOF();
-
-            while(true)
-            {
-                
-                if(token != null)
-                {
-                    System.out.println(token.toString());
-                }
-                else
-                {
-                    System.exit(1);
-                }
-
-                token = lexer.scan();
-                
-                isEOF =  lexer.getIsEOF();
-                if(isEOF){
-                    break;
-                }
-            }
-
-            System.out.println(lexer.getSymbolTable());
-            lexer.clearLines();
+            parser.parse();
 
         }
         catch(NullPointerException e)
