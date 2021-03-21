@@ -39,7 +39,7 @@ public class Parser {
         token = lexer.scan();
         isEOF = lexer.getIsEOF();
 
-        if(!isEOF){ 
+        if(!isEOF) { 
 
             if(token != null)
             {
@@ -57,7 +57,7 @@ public class Parser {
 
     private void eat(int t) throws IOException{
 
-        if(t == -1){
+        if(t == -1) {
             System.out.println("Parser terminou a sua execução.");
         }
 
@@ -67,7 +67,7 @@ public class Parser {
         error(tok);
     }
 
-    private void error(Token t){
+    private void error(Token t) {
         System.out.println("Unexpected token " + t.toString());
     }
 
@@ -77,64 +77,67 @@ public class Parser {
      */
 
     private void program() throws IOException {
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.INIT:
-                eat(Tag.INIT); program2();  
-            case Tag.IS:
-                break;  
+                eat(Tag.INIT); program2(); 
             default:
                 error(tok);
         }
     }
 
     private void program2() throws IOException {
-        // VERIFICAR COM A PROFESSORA
+        switch (tok.tag) {
+            case Tag.BEGIN:
+                eat(Tag.BEGIN); stmtList(); eat(Tag.STOP); break;
+            case Tag.ID:
+                declList(); eat(Tag.BEGIN); stmtList();  eat(Tag.STOP); break;
+            default:
+                error(tok);
+        }
     }
 
     private void declList() throws IOException {
-        
+        switch (tok.tag) {
+            case Tag.ID:
+                decl(); eat(Tag.END_COMMAND);  declList2(); break;
+            default:
+                error(tok);
+        }
     }
 
     private void declList2() throws IOException {
-        // VERIFICAR COM A PROFESSORA
+        switch (tok.tag) {
+            case Tag.ID:
+                declList(); break;
+            case Tag.BEGIN: break;
+            default:
+                error(tok);
+        }
     }
 
     private void decl() throws IOException {
-        
-        // CASO DO TYPE QUE ESTA FALTANDO
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.ID:
-                identList(); eat(Tag.IS); eat(Tag.TYPE); break;  
-            case Tag.IS:
-                break;  
+                identList(); eat(Tag.IS); type(); break;  
             default:
                 error(tok);
         }
-
     }
 
     private void identList() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.ID:
-                eat(Tag.ID); identList2(); break;  
-            case Tag.IS:
-                break;  
+                eat(Tag.ID); identList2(); break; 
             default:
                 error(tok);
         }
-
     }
 
     private void identList2() throws IOException {
-        
-        switch(tok.tag){
-
-            // CASO DA VIRGULA QUE ESTA FALTANDO
+        switch(tok.tag) {
             case Tag.COMMA:
                 eat(Tag.COMMA); eat(Tag.ID); identList2(); break;  
-            case Tag.IS:
-                break;  
+            case Tag.IS: break;  
             default:
                 error(tok);
         }
@@ -142,8 +145,7 @@ public class Parser {
     }
 
     private void type() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.INTEGER:
                 eat(Tag.INTEGER); break;  
             case Tag.STRING:
@@ -156,12 +158,47 @@ public class Parser {
     }
 
     private void stmtList() throws IOException {
-        // problema da recursão
+        switch (tok.tag) {
+            case Tag.ID:
+                stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
+            case Tag.IF:
+                stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
+            case Tag.DO:
+                stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
+            case Tag.READ:
+                stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
+            case Tag.WRITE:
+                stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
+            default:
+                break;
+        }
+    }
+
+    private void stmtList2() throws IOException {
+        switch (tok.tag) {
+            case Tag.STOP:
+                break;
+            case Tag.ID:
+                stmtList(); break;
+            case Tag.IF:
+                stmtList(); break;
+            case Tag.END:
+                break;
+            case Tag.DO:
+                stmtList(); break;
+            case Tag.WHILE:
+                break;
+            case Tag.READ:
+                stmtList(); break;
+            case Tag.WRITE:
+                stmtList(); break;
+            default:
+                break;
+        }
     }
 
     private void stmt() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.WRITE:
                 writeStmt(); break;  
             case Tag.READ:
@@ -179,21 +216,18 @@ public class Parser {
     }
 
     private void assignStmt() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.ID:
-                eat(Tag.ID); simpleExpr(); break;  
+                eat(Tag.ID); eat(Tag.ASSIGN); simpleExpr(); break;  
             case Tag.END_COMMAND:
                 break;
             default:
                 error(tok);
         }
-
     }
 
     private void ifStmt() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.IF:
                 eat(Tag.IF); 
                 eat(Tag.OPEN_PARENTHESIS);
@@ -203,30 +237,24 @@ public class Parser {
                 stmtList(); 
                 eat(Tag.END);
                 ifStmt2(); break;  
-            case Tag.END_COMMAND:
-                break;
             default:
                 error(tok);
         }
- 
     }
 
     private void ifStmt2() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.ELSE:
-                eat(Tag.ELSE); eat(Tag.BEGIN); stmtList(); break;  
+                eat(Tag.ELSE); eat(Tag.BEGIN); stmtList(); eat(Tag.END); break;  
             case Tag.END_COMMAND:
                 break;
             default:
                 error(tok);
         }
-
     }
 
     private void condition() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 expression(); break;  
             case Tag.MINUS:
@@ -240,11 +268,10 @@ public class Parser {
             default:
                 error(tok);
         }
-        
     }
 
     private void doStmt() throws IOException {
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.DO:
                 eat(Tag.DO); 
                 stmtList();
@@ -253,32 +280,29 @@ public class Parser {
             default:
                 error(tok);
         }
-        
     }
 
     private void doSuffix() throws IOException {
-
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.WHILE:
                 eat(Tag.WHILE); 
-                eat(Tag.CLOSE_PARENTHESIS); 
+                eat(Tag.OPEN_PARENTHESIS);
                 condition();
-                eat(Tag.OPEN_PARENTHESIS); 
+                eat(Tag.CLOSE_PARENTHESIS);
                 break;
             default:
                 error(tok);
         }
-        
     }
 
     private void readStmt() throws IOException {
 
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.READ:
                 eat(Tag.READ); 
-                eat(Tag.CLOSE_PARENTHESIS); 
+                eat(Tag.OPEN_PARENTHESIS);
                 eat(Tag.ID); 
-                eat(Tag.OPEN_PARENTHESIS); 
+                eat(Tag.CLOSE_PARENTHESIS);
                 break;
             default:
                 error(tok);
@@ -287,23 +311,20 @@ public class Parser {
     }
 
     private void writeStmt() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.WRITE:
                 eat(Tag.WRITE); 
-                eat(Tag.CLOSE_PARENTHESIS); 
+                eat(Tag.OPEN_PARENTHESIS);
                 writable(); 
-                eat(Tag.OPEN_PARENTHESIS); break;
+                eat(Tag.CLOSE_PARENTHESIS); 
+                break;
             default:
                 error(tok);
         }
-
-
     }
 
     private void writable() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 simpleExpr(); break;  
             case Tag.MINUS:
@@ -317,12 +338,10 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 
     private void expression() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 simpleExpr(); expression2(); break;  
             case Tag.MINUS:
@@ -336,12 +355,10 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 
     private void expression2() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.NOT_EQUAL:
                 relop(); simpleExpr(); break;  
             case Tag.LESS_EQUAL:
@@ -359,12 +376,10 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 
     private void simpleExpr() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 term(); simpleExpr2(); break;
             case Tag.MINUS:
@@ -378,12 +393,10 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 
     private void simpleExpr2() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.OR:
                 addop(); term(); simpleExpr2(); break;
             case Tag.SUM:
@@ -407,17 +420,15 @@ public class Parser {
             default:
                 error(tok);
         }
-        
     }
 
     private void term() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 factorA(); term2(); break;
             case Tag.MINUS:
                 factorA(); term2(); break;
-            case Tag.NOT_EQUAL:
+            case Tag.NOT:
                 factorA(); term2(); break; 
             case Tag.OPEN_PARENTHESIS:
                 factorA(); term2(); break;
@@ -426,12 +437,10 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 
     private void term2() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.AND:
                 mulop(); factorA(); term2(); break;
             case Tag.TIMES:
@@ -460,17 +469,17 @@ public class Parser {
                 break;
             default:
                 error(tok);
-        }        
-        
+        }
     }
 
     private void factorA() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 factor(); break;
             case Tag.MINUS:
                 eat(Tag.MINUS); factor(); break;
+            case Tag.NOT:
+                eat(Tag.NOT); factor(); break;
             case Tag.OPEN_PARENTHESIS:
                 factor(); break;
             case Tag.ID:
@@ -478,12 +487,10 @@ public class Parser {
             default:
                 error(tok);
         }
-        
     }
 
     private void factor() throws IOException {
-        
-        switch(tok.tag){
+        switch(tok.tag) {
             case Tag.CONSTANT:
                 eat(Tag.CONSTANT); break;
             case Tag.OPEN_PARENTHESIS:
@@ -492,48 +499,43 @@ public class Parser {
                 eat(Tag.ID); break;
             default:
                 error(tok);
-        }  
-                
+        }
     }
 
     private void relop() throws IOException {
-        
-        switch(tok.tag){
-            case Tag.SUM:
-                eat(Tag.SUM); break;
-            case Tag.MINUS:
-                eat(Tag.MINUS); break;
-            case Tag.OR:
-                eat(Tag.OR); break;
+        switch(tok.tag) {
+            case Tag.NOT_EQUAL:
+                eat(Tag.NOT_EQUAL); break;
+            case Tag.LESS_EQUAL:
+                eat(Tag.LESS_EQUAL); break;
+            case Tag.LESS:
+                eat(Tag.LESS); break;
+            case Tag.GREATER_EQUAL:
+                eat(Tag.GREATER_EQUAL); break;
+            case Tag.GREATER:
+                eat(Tag.GREATER); break;
+            case Tag.EQUALS:
+                eat(Tag.EQUALS); break;
             default:
                 error(tok);
         }        
     }
 
     private void addop() throws IOException {
-        
-        switch(tok.tag){
-            case Tag.GREATER:
-                eat(Tag.GREATER); break;
-            case Tag.GREATER_EQUAL:
-                eat(Tag.GREATER_EQUAL); break;
-            case Tag.LESS:
-                eat(Tag.LESS); break;
-            case Tag.LESS_EQUAL:
-                eat(Tag.LESS_EQUAL); break;
-            case Tag.NOT_EQUAL:
-                eat(Tag.NOT_EQUAL); break;
-            case Tag.EQUALS:
-                eat(Tag.EQUALS); break;
+        switch(tok.tag) {
+            case Tag.OR:
+                eat(Tag.OR); break;
+            case Tag.SUM:
+                eat(Tag.SUM); break;
+            case Tag.MINUS:
+                eat(Tag.MINUS); break;
             default:
                 error(tok);
         }
-        
     }
 
-    private void mulop() throws IOException{
-        
-        switch(tok.tag){
+    private void mulop() throws IOException {
+        switch(tok.tag) {
             case Tag.TIMES:
                 eat(Tag.TIMES); break;
             case Tag.DIVIDE:
@@ -543,6 +545,5 @@ public class Parser {
             default:
                 error(tok);
         }
-
     }
 }

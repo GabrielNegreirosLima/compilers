@@ -349,7 +349,7 @@ public class Lexer
         {
             case ',':
                 readch();
-                return Word.coma;
+                return Word.comma;
             case '=':
                 readch();
                 return Word.equals;

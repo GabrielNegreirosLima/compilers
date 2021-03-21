@@ -42,7 +42,7 @@ public class Tag {
         MINUS = 283, // -
         TIMES = 284, // *
         DIVIDE = 285, // /
-        COMA = 286, // ,
+        COMMA = 286, // ,
 
         //Grammar
         QUOTE = 287, // "
