@@ -213,7 +213,7 @@ public class Lexer
         
         if(s != null) 
         {
-            Word w = new Word(s, Tag.STRING);
+            Word w = new Word(s, Tag.CONSTANT);
             words.put(s, w);
             return w;
         }
@@ -277,7 +277,8 @@ public class Lexer
     private Token verifyIsConst() throws IOException
     {
         StringBuffer sb = new StringBuffer();
-
+        // verify string const
+        // else verifyIntegerConst
         sb = verifyIntegerConst();
 
         if(sb == null)
@@ -285,7 +286,7 @@ public class Lexer
             return null;
         }
         
-        // integer_const
+        // integer_const        
         else if(ch != '.')
         {
             String s = sb.toString();           

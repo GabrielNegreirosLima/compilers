@@ -63,8 +63,8 @@ public class Parser {
 
         if(tok.tag == t)
             advance();
-        
-        error(tok);
+        else
+            error(tok);
     }
 
     private void error(Token t) {
