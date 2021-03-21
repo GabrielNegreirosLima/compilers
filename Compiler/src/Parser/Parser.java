@@ -68,7 +68,8 @@ public class Parser {
     }
 
     private void error(Token t) {
-        System.out.println("Unexpected token " + t.toString());
+        System.out.println("Unexpected token " + t.toString() + " At line: " + Lexer.line);
+        System.exit(1);
     }
 
 
