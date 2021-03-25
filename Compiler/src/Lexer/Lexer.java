@@ -291,7 +291,7 @@ public class Lexer
         {
             String s = sb.toString();           
 
-            Word w = new Word(s, Tag.INTEGER);
+            Word w = new Word(s, Tag.CONSTANT);
             words.put(s, w);
             return w;
         }
@@ -306,7 +306,7 @@ public class Lexer
 
             String s = sb.toString();           
 
-            Word w = new Word(s, Tag.REAL);
+            Word w = new Word(s, Tag.CONSTANT);
             words.put(s, w);
             return w;
 

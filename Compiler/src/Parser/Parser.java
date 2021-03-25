@@ -219,9 +219,7 @@ public class Parser {
     private void assignStmt() throws IOException {
         switch(tok.tag) {
             case Tag.ID:
-                eat(Tag.ID); eat(Tag.ASSIGN); simpleExpr(); break;  
-            case Tag.END_COMMAND:
-                break;
+                eat(Tag.ID); eat(Tag.ASSIGN); simpleExpr(); break;
             default:
                 error(tok);
         }
@@ -418,6 +416,8 @@ public class Parser {
                 break;
             case Tag.CLOSE_PARENTHESIS:
                 break;
+            case Tag.END_COMMAND:
+                break;
             default:
                 error(tok);
         }
@@ -467,6 +467,8 @@ public class Parser {
             case Tag.EQUALS:
                 break;
             case Tag.CLOSE_PARENTHESIS:
+                break;
+            case Tag.END_COMMAND:
                 break;
             default:
                 error(tok);
