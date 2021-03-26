@@ -328,6 +328,8 @@ public class Lexer
                 do{
                     readch();
                     currentLine = line;
+                    if(ch == '\n')
+                        Lexer.line ++;
                     if((int)ch == 65535)
                         return currentLine;
                 } while (ch != '%');
