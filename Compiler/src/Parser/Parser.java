@@ -35,11 +35,11 @@ public class Parser {
     private Token getToken() throws IOException{
         Token token;
         boolean isEOF;
-    
+        
         token = lexer.scan();
         isEOF = lexer.getIsEOF();
 
-        if(!isEOF) { 
+        if(!isEOF) {
 
             if(token != null)
             {
@@ -50,6 +50,8 @@ public class Parser {
                 System.out.println("Error at token processing");
                 System.exit(1);
             }
+        } else if(this.tok.tag != Tag.STOP) {
+            error(tok);
         }
 
         return null;
@@ -171,7 +173,7 @@ public class Parser {
             case Tag.WRITE:
                 stmt(); eat(Tag.END_COMMAND); stmtList2(); break;
             default:
-                break;
+                error(tok);
         }
     }
 
@@ -194,7 +196,7 @@ public class Parser {
             case Tag.WRITE:
                 stmtList(); break;
             default:
-                break;
+                error(tok);
         }
     }
 
@@ -244,7 +246,11 @@ public class Parser {
     private void ifStmt2() throws IOException {
         switch(tok.tag) {
             case Tag.ELSE:
-                eat(Tag.ELSE); eat(Tag.BEGIN); stmtList(); eat(Tag.END); break;  
+                eat(Tag.ELSE);
+                eat(Tag.BEGIN);
+                stmtList();
+                eat(Tag.END);
+                break;  
             case Tag.END_COMMAND:
                 break;
             default:
