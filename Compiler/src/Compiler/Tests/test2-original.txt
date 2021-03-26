@@ -1,4 +1,4 @@
-a, _valor, b_1, b_2 : integer;
+a, valor, b_1, b_2 : integer;
 
 init
     write("Entre com o valor de a:");
